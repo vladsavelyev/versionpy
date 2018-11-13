@@ -5,17 +5,16 @@ python:
   - "3.6"  # required, otherwise conda will try to clash with py2 packages
 
 before_install:
-  - export PACKAGE_NAME=tsvutils
+  - export PACKAGE_NAME=release
 
   # Get and install anaconda (https://conda.io/docs/travis.html)
   - wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH=$HOME/miniconda/bin:$PATH
   - hash -r
-  - conda config --set always_yes yes --set changeps1 no
+  - conda config --set always_yes yes --set changeps1 no --set anaconda_upload no
   - conda update -q conda
   - conda info -a  # Useful for debugging any issues with conda
-  - conda config --set anaconda_upload no
 
 install:
   - conda config --add channels defaults --add channels vladsaveliev --add channels bioconda --add channels conda-forge
