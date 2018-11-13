@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import subprocess
 import click
-from release import VERSION_COMPONENTS, increment_version
+from release import COMPONENT_NAMES, get_component_ind, increment_version
 
 
 def validate_version(ctx, param, value):
@@ -9,9 +9,9 @@ def validate_version(ctx, param, value):
         if len(value.split('.')) != 3:
             raise click.BadParameter(f'Version must have 3 components. Got: {value}')
     else:
-        value = value.upper()
-        if value not in VERSION_COMPONENTS:
-            raise click.BadParameter(f'Parameter must be either a 3-component version tag, or one of {VERSION_COMPONENTS}')
+        if get_component_ind(value) is None:
+            raise click.BadParameter(f'Parameter must be either a 3-component version tag, '
+                                     f'or one of {", ".join(v[-1] for v in COMPONENT_NAMES.values())}')
     return value
 
 
