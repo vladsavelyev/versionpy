@@ -23,12 +23,12 @@ def get_component_ind(component_name):
 def get_version(pkg):
     if not pkg:
         pkg = _find_package(pkg)
-    return _get_cur_version(pkg)
+    return str(_get_cur_version(pkg))
 
 
 def increment_version(arg='patch', pkg=None):
     if get_component_ind(arg) is not None:  # one of version component names
-        cur_version = get_version(pkg)
+        cur_version = StrictVersion(get_version(pkg))
         if cur_version is None:
             new_version = StrictVersion('0.0')
             err(f'Initialising with version {new_version}')
