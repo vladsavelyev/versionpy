@@ -15,7 +15,7 @@ before_install:
   - conda info -a  # Useful for debugging any issues with conda
 
 install:
-  - export PACKAGE_NAME=release
+  - export PACKAGE_NAME=releazit
   - conda config --add channels defaults --add channels vladsaveliev --add channels bioconda --add channels conda-forge
   - conda install -q python=$TRAVIS_PYTHON_VERSION pip requests conda-build jinja2 anaconda-client
   # Building package
@@ -23,8 +23,8 @@ install:
   - conda install --use-local ${PACKAGE_NAME}
 
 script:
-  - python -c "from release import get_version, increment_version"
-  - release --help
+  - python -c "from releazit import get_version, increment_version"
+  - releazit --help
 
 deploy:
   # Deploy to anaconda.org

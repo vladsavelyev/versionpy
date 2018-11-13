@@ -1,33 +1,45 @@
-# release
+# Releazit
 
-Small utility to version and release your tools
+Small utility to version and release your tools.
 
-The tool keeps track of the version in a file `your_package/_version.py`. On first run, it will initiate this file.
+Tracks the version using the file `your_package/_version.py`.
+
+## Initialising
+
+Set version to `0.0.1`:
+
+```
+releazit 0.0.1
+```
+
+Releazit either finds `_version.py`, or inititates it in the main package.
+
+If the argument is ommited, will set the version to `0.0`.
+
+If you have several packages in the project and want to store `_version.py` in a particular on, use `-p`:
+
+```
+releazit 0.0.1 -p your_package
+```
 
 ## Usage:
 
-Set version to 0.0.1 (finds `_version.py` or inititates this file in the main package):
+Increment bugfix (patch) component (`0.0` -> `0.0.1`):
 
 ```
-release 0.0.1
+releazit
 ```
 
-Set version to 0.0.1 in the package `your_package`:
+Increment minor component (0.0.1 -> 0.1):
 
 ```
-release 0.0.1 -p your_package
+releazit minor
 ```
 
-Increment bugfix version (0.0.1 -> 0.0.2):
+Allowed first arguments: major, minor, bugfix/patch, or exact version in format of 2 or 3-component version 
+with a possible pre-prerelease component:
 
-```
-release
-```
-
-Increment minor version (0.0.1 -> 0.1.0):
-
-```
-release minor
-```
-
-Allowed first arguments: bugfix, minor, major, or version in format *.*.*
+    - 1.0.0
+    - 2.1
+    - 2.0pre
+    - 2.0.2a1

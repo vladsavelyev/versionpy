@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import subprocess
 import click
-from release import COMPONENT_NAMES, get_component_ind, increment_version
+from releazit import COMPONENT_NAMES, get_component_ind, increment_version
 
 
 def validate_version(ctx, param, value):

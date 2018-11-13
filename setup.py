@@ -1,10 +1,11 @@
 #!/usr/bin/env python
+from os.path import join
 from setuptools import setup
-import release
+import releazit
 
-pkg = release.__name__
+pkg = releazit.__name__
 
-version = release.get_version(pkg)
+version = releazit.get_version(pkg)
 
 setup(
     name=pkg,
@@ -20,8 +21,8 @@ setup(
     packages=[pkg],
     include_package_data=True,
     zip_safe=False,
-    install_requires=release.get_reqs(),
-    scripts=['scripts/release'],
+    install_requires=releazit.get_reqs(),
+    scripts=[join('scripts', pkg)],
     classifiers=[
         'Environment :: Console',
         'Intended Audience :: Science/Research',
