@@ -28,7 +28,6 @@ script:
   - release --help
 
 deploy:
-  matrix:
   # Deploy to anaconda.org
   - provider: script
     script:
