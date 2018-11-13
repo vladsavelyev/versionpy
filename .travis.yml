@@ -10,7 +10,7 @@ before_install:
   # Get and install anaconda (https://conda.io/docs/travis.html)
   - wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
   - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH=$HOME/miniconda/bin:$PATH
+  - source $HOME/miniconda/etc/profile.d/conda.sh
   - hash -r
   - conda config --set always_yes yes --set changeps1 no --set anaconda_upload no
   - conda update -q conda
@@ -18,7 +18,7 @@ before_install:
 
 install:
   - conda config --add channels defaults --add channels vladsaveliev --add channels bioconda --add channels conda-forge
-  - conda install -q python=$TRAVIS_PYTHON_VERSION pip requests conda-build jinja2 anaconda-client click
+  - conda create -n test_env python=$TRAVIS_PYTHON_VERSION pip requests conda-build jinja2 anaconda-client click
   # Building package
   - conda build conda_pkg/${PACKAGE_NAME}
   - conda install --use-local ${PACKAGE_NAME}
@@ -37,7 +37,7 @@ deploy:
       tags: true
     skip_cleanup: true
 
-  # Deploy to pypi
+#  # Deploy to pypi
 #  - provider: pypi
 #    on:
 #      tags: true
