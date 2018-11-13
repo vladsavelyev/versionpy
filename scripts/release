@@ -18,7 +18,7 @@ def validate_version(ctx, param, value):
 @click.command()
 @click.argument('new_version', default='BUGFIX', callback=validate_version)
 @click.option('-p', 'package_name')
-def release(new_version, package_name=None):
+def main(new_version, package_name=None):
     """ Usage: release [bugfix,minor,major,1.0.1] [-p package_name]
     """
     version_file, new_version = increment_version(new_version, package_name)
@@ -31,3 +31,7 @@ def release(new_version, package_name=None):
 def run_cmdl(_cmd):
     print('$ ' + _cmd)
     subprocess.run(_cmd, shell=True, check=True)
+
+
+if __name__ == '__main__':
+    main()

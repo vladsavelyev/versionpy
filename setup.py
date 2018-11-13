@@ -2,21 +2,21 @@
 from setuptools import setup
 import release
 
-package_name = release.__name__
+pkg = release.__name__
 
-version = release.get_cur_version(package_name)
+version = release.get_version(pkg)
 
 setup(
-    name=package_name,
+    name=pkg,
     version=version,
     author='Vlad Saveliev',
     author_email='vladislav.sav@gmail.com',
     description='Small utility to version and release your tools',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    url='https://github.com/vladsaveliev/' + package_name,
+    url='https://github.com/vladsaveliev/' + pkg,
     license='GPLv3',
-    packages=[package_name],
+    packages=[pkg],
     include_package_data=True,
     zip_safe=False,
     install_requires=release.get_reqs(),

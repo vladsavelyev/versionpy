@@ -9,18 +9,28 @@ from os.path import join, isfile, dirname, relpath, isdir
 VERSION_COMPONENTS = ['MAJOR', 'MINOR', 'BUGFIX']
 
 
+def get_version(pkg):
+    if not pkg:
+        pkg = _find_package(pkg)
+    return _get_cur_version(pkg)
+
+
 def increment_version(arg='BUGFIX', pkg=None):
     if arg in VERSION_COMPONENTS:
         cur_version = get_version(pkg)
-        components = cur_version.split('.')
-        assert len(components) == 3, f'Version must have 3 components. Cannot parse "{cur_version}"'
+        if cur_version is None:
+            new_version = '0.0.0'
+            err(f'Inititalising with version {new_version}')
+        else:
+            components = cur_version.split('.')
+            assert len(components) == 3, f'Version must have 3 components. Cannot parse "{cur_version}"'
 
-        component_ind = VERSION_COMPONENTS.index(arg)
-        err(f'Incrementing {arg} component: "{components[component_ind]}"')
-        components[component_ind] = str(int(components[component_ind]) + 1)
-        for lower_component_ind in range(component_ind + 1, len(VERSION_COMPONENTS)):
-            components[lower_component_ind] = '0'
-        new_version = '.'.join(components)
+            component_ind = VERSION_COMPONENTS.index(arg)
+            err(f'Incrementing {arg} component: "{components[component_ind]}"')
+            components[component_ind] = str(int(components[component_ind]) + 1)
+            for lower_component_ind in range(component_ind + 1, len(VERSION_COMPONENTS)):
+                components[lower_component_ind] = '0'
+            new_version = '.'.join(components)
 
     else:
         new_version = arg
@@ -86,16 +96,11 @@ def get_git_revision():
     return git_revision
 
 
-def get_version(pkg):
-    if not pkg:
-        pkg = _find_package(pkg)
-    return _get_cur_version(pkg)
-
-
 def _get_cur_version(pkg):
+    """ Tries to find _version.py or VERSION.txt with a value for a current version. On failure, returns None.
+    """
     version_py = join(pkg, '_version.py')
-    if version_py:
-        version_py = join(pkg, '_version.py')
+    if isfile(version_py):
         cur_version = importlib.import_module(f'{pkg}._version').__version__
         err(f'Current version, read from {version_py}: {cur_version}')
     else:
@@ -104,8 +109,7 @@ def _get_cur_version(pkg):
             cur_version = open(version_txt).read().strip()
             err(f'Current version, read from {version_txt}: {cur_version}')
         else:
-            cur_version = '0.0.0'
-            err(f'Inititalising with version {cur_version}')
+            cur_version = None
     return cur_version
 
 
