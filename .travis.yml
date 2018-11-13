@@ -39,10 +39,10 @@ deploy:
     skip_cleanup: true
 
   # Deploy to pypi
-  - provider: pypi
-    on:
-      tags: true
-    skip_cleanup: true
-    user: vladsaveliev
-    password:
-      secure: DbnJ6gricHCK4Tbli5SZP2uYggZc5RUzE2E8CZ2RQCC50/+6SBiSuZVr06Kv36mvutB2oFD1Ci3N7tPlUhlItq48zPxHNA8rDHxw+4RaU6DLhzDjxZZS/J/h2Lyo7pbV5dg+/fLMlym9zjRSzs/bEyNzqp00qcxZl8ajY6BN8kcqlFZkamOJhxGPPyIrswZgr19AdqELyTlaTRgKgIs9MHSDqvWzZKXQIfkrX9UK2OJXmsYbMzDTFIV6WTd2he6IBq/hgCnxIHpusOQBUCNMB/40642YM6l7hGyc1BKcOSQZzBLLwuaWjYcYBF4UThxuJ+o4+vghqdWH2ikGXeyz1G26P/kZra0va0QDiQNCjRq5DFVLprfVKXJbJ3YYMD29JDGVyZv0nywuOMsBj14y4wIYXllgO0iW6dW/aCal60CmC8Khi1cDA7r3tlgvnRBmBdcpQZ6D/CNCNdq/u/bVC43aPMIIOqK2XHo7SyQ421L7a8HYisSpg1KZX3SYxSxZBfYb/xiKNQZpVFpmXA6PFdlL76zUUGk6ZjqjCi5ljXvwC31obX1vYK871VvmffUrrVJI4WDeYaeQwAfB04bd/DPpprpZdnnm8g51HMRWUZb7FDf2a7aBQzTw995lqnFc8awRK61UdRoM69t5NcVZQxhYfAr5S9HAzqJwOl2UcpQ=
+#  - provider: pypi
+#    on:
+#      tags: true
+#    skip_cleanup: true
+#    user: vladsaveliev
+#    password:
+#      secure: DbnJ6gricHCK4Tbli5SZP2uYggZc5RUzE2E8CZ2RQCC50/+6SBiSuZVr06Kv36mvutB2oFD1Ci3N7tPlUhlItq48zPxHNA8rDHxw+4RaU6DLhzDjxZZS/J/h2Lyo7pbV5dg+/fLMlym9zjRSzs/bEyNzqp00qcxZl8ajY6BN8kcqlFZkamOJhxGPPyIrswZgr19AdqELyTlaTRgKgIs9MHSDqvWzZKXQIfkrX9UK2OJXmsYbMzDTFIV6WTd2he6IBq/hgCnxIHpusOQBUCNMB/40642YM6l7hGyc1BKcOSQZzBLLwuaWjYcYBF4UThxuJ+o4+vghqdWH2ikGXeyz1G26P/kZra0va0QDiQNCjRq5DFVLprfVKXJbJ3YYMD29JDGVyZv0nywuOMsBj14y4wIYXllgO0iW6dW/aCal60CmC8Khi1cDA7r3tlgvnRBmBdcpQZ6D/CNCNdq/u/bVC43aPMIIOqK2XHo7SyQ421L7a8HYisSpg1KZX3SYxSxZBfYb/xiKNQZpVFpmXA6PFdlL76zUUGk6ZjqjCi5ljXvwC31obX1vYK871VvmffUrrVJI4WDeYaeQwAfB04bd/DPpprpZdnnm8g51HMRWUZb7FDf2a7aBQzTw995lqnFc8awRK61UdRoM69t5NcVZQxhYfAr5S9HAzqJwOl2UcpQ=
