@@ -1,11 +1,11 @@
-{% set version=load_setup_py_data().get('version') %}
+{% set data=load_setup_py_data() %}
 
 package:
   name: release
-  version: "{{ version }}"
+  version: {{ data.version }}
 
 source:
-  path: ../../../
+  path: ../../
 
 build:
   number: 0
@@ -13,19 +13,23 @@ build:
 requirements:
   build:
     - python ==3.6
-    - click
+    {% for dep in data.install_requires %}
+    - {{ dep.lower() }}
+    {% endfor %}
   run:
     - python ==3.6
-    - click
+    {% for dep in data.install_requires %}
+    - {{ dep.lower() }}
+    {% endfor %}
 
 test:
   imports:
     - release
   commands:
-    - release
+    - release --help
 
 about:
-  home: https://github.com/vladsaveliev/release
+  home: data.url
   license: GNU General Public License v3 (GPLv3)
-  summary: 'Small utility to version and release your tools'
   license_family: GPL3
+  summary: data.description

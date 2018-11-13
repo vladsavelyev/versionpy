@@ -5,7 +5,8 @@ python:
   - "3.6"  # required, otherwise conda will try to clash with py2 packages
 
 before_install:
-  - export PACKAGE_NAME=ngs_utils
+  - export PACKAGE_NAME=tsvutils
+
   # Get and install anaconda (https://conda.io/docs/travis.html)
   - wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
   - bash miniconda.sh -b -p $HOME/miniconda

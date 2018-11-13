@@ -8,6 +8,7 @@ version = release.get_version(pkg)
 
 setup(
     name=pkg,
+    script_name=pkg,
     version=version,
     author='Vlad Saveliev',
     author_email='vladislav.sav@gmail.com',
