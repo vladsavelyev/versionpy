@@ -24,9 +24,9 @@ requirements:
 
 test:
   imports:
-    - release
+    - releazit
   commands:
-    - release --help
+    - releazit --help
 
 about:
   home: {{ data.url }}
