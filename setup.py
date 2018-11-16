@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 from os.path import join
 from setuptools import setup
-import releazit
+import versionpy
 
-pkg = releazit.__name__
+pkg = versionpy.__name__
 
-version = releazit.get_version(pkg)
+version = versionpy.get_version(pkg)
 
 setup(
     name=pkg,
@@ -13,7 +13,7 @@ setup(
     version=version,
     author='Vlad Saveliev',
     author_email='vladislav.sav@gmail.com',
-    description='Small utility to version and release your tools',
+    description='Small utility to track and bump the version of your python tool',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
     url='https://github.com/vladsaveliev/' + pkg,
@@ -21,8 +21,8 @@ setup(
     packages=[pkg],
     include_package_data=True,
     zip_safe=False,
-    install_requires=releazit.get_reqs(),
-    scripts=[join('scripts', pkg)],
+    install_requires=versionpy.get_reqs(),
+    scripts=[join('scripts', 'bump')],
     classifiers=[
         'Environment :: Console',
         'Intended Audience :: Science/Research',
