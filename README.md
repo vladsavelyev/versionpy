@@ -2,6 +2,11 @@
 
 Small utility to version and release your python tools. Doesn't need any configuration files.
 
+## Install
+
+```
+conda install -c vladsaveliev versionpy
+```
 
 ## Usage
 
