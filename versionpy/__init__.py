@@ -113,7 +113,15 @@ def _get_cur_version(pkg):
     """
     version_py = join(pkg, '_version.py')
     if isfile(version_py):
-        cur_version = StrictVersion(importlib.import_module(f'{pkg}._version').__version__)
+        ver_str = None
+        with open(version_py) as f:
+            for l in f:
+                if l.startswith('__version__ = '):
+                    ver_str = l.split(' = ')[1].strip().strip("'")
+                    print(ver_str)
+                    break
+        assert ver_str, f'Cannot read verion from file {version_py}'
+        cur_version = StrictVersion(ver_str)
         err(f'Current version, read from {version_py}: {cur_version}')
     else:
         version_txt = 'VERSION.txt'
