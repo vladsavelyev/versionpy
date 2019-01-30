@@ -22,7 +22,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=versionpy.get_reqs(),
-    scripts=[join('scripts', 'bump')],
+    scripts=[join('scripts', 'bump'), join('scripts', 'version')],
     classifiers=[
         'Environment :: Console',
         'Intended Audience :: Science/Research',

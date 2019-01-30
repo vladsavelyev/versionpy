@@ -19,7 +19,7 @@ def validate_version(ctx, param, value):
 @click.argument('new_version', default='BUGFIX', callback=validate_version)
 @click.option('-p', 'package_name')
 def main(new_version, package_name=None):
-    """ Usage: release [bugfix,minor,major,1.0.1] [-p package_name]
+    """ Usage: bump [bugfix,minor,major,1.0.1] [-p package_name]
     """
     version_file, new_version = increment_version(new_version, package_name)
     run_cmdl(f'git add {version_file}')
