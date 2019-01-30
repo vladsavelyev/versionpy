@@ -10,7 +10,8 @@ from versionpy import get_version
 def main(package_name=None):
     """ Usage: bump [bugfix,minor,major,1.0.1] [-p package_name]
     """
-    sys.stderr.write(f'{get_version(package_name)}\n')
+    v = get_version(package_name, silent=True)
+    sys.stderr.write(f'{v}\n')
 
 
 if __name__ == '__main__':
