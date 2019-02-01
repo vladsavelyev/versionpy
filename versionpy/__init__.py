@@ -55,7 +55,7 @@ def increment_version(arg='patch', pkg=None):
             new_version = StrictVersion('0.0')
             log(f'Initialising with version {new_version}')
         else:
-            cur_version = StrictVersion(_get_cur_version(pkg))
+            cur_version = _get_cur_version(pkg)
             if not cur_version:
                 critical(f'Cannot parse version from {version_py}')
             components = list(cur_version.version)
@@ -144,12 +144,12 @@ def _get_cur_version(pkg, silent=False):
                     break
         assert ver_str, f'Cannot read verion from file {version_py}'
         cur_version = StrictVersion(ver_str)
-        log(f'Current version, read from {version_py}: {cur_version}', silent=silent)
+        log(f'Current version as read from {version_py}: {cur_version}', silent=silent)
     else:
         version_txt = 'VERSION.txt'
         if isfile(version_txt):
             cur_version = StrictVersion(open(version_txt).read().strip())
-            log(f'Current version, read from {version_txt}: {cur_version}', silent=silent)
+            log(f'Current version as read from {version_txt}: {cur_version}', silent=silent)
         else:
             cur_version = None
     return cur_version
