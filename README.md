@@ -35,6 +35,12 @@ with a possible pre-prerelease component:
     - 2.1
     - 2.0pre
     - 2.0.2a1
+   
+For a tracked tool, you can check current version with:
+    
+```
+version
+```
 
 
 ## Under the hood
