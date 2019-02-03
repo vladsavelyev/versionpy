@@ -10,22 +10,22 @@ conda install -c vladsaveliev versionpy
 
 ## Usage
 
-Set version to `0.1.2`:
+Set version to `0.1.2`, create a git tag and push:
 
 ```
-bump 0.1.2
+$ bump 0.1.2
 ```
 
-Increment bugfix (patch) component (e.g. `0.1.2` -> `0.1.3`):
+Increment bugfix (patch) component (e.g. `0.1.2` -> `0.1.3`), create a git tag and push:
 
 ```
-bump
+$ bump
 ```
 
-Increment minor component (e.g. `0.1.3` -> `0.2`):
+Increment minor component (e.g. `0.1.3` -> `0.2`), create a git tag and push:
 
 ```
-bump minor
+$ bump minor
 ```
 
 Allowed first arguments: `major`, `minor`, `bugfix`/`patch`, or exact version in format of 2 or 3-component version 
@@ -36,10 +36,11 @@ with a possible pre-prerelease component:
     - 2.0pre
     - 2.0.2a1
    
-For a tracked tool, you can check current version with:
-    
+For a tracked tool, you can check current version with a single command:
+
 ```
-version
+$ version
+0.2
 ```
 
 
