@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+import click
+from versionpy import increment_version, click_validate_version
+
+
+@click.command()
+@click.argument('new_version', default='BUGFIX', callback=click_validate_version)
+@click.option('-p', 'package_name')
+def main(new_version, package_name=None):
+    """ Usage: increment_version [bugfix,minor,major,1.0.1] [-p package_name]
+    """
+    increment_version(new_version, package_name)
+
+
+if __name__ == '__main__':
+    main()

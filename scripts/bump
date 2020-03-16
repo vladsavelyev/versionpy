@@ -1,22 +1,11 @@
 #!/usr/bin/env python
 import subprocess
 import click
-from versionpy import COMPONENT_NAMES, get_component_ind, increment_version
-
-
-def validate_version(ctx, param, value):
-    if '.' in value:
-        if len(value.split('.')) < 2 or len(value.split('.')) > 3:
-            raise click.BadParameter(f'Version must have 3 components. Got: {value}')
-    else:
-        if get_component_ind(value) is None:
-            raise click.BadParameter(f'Parameter must be either a 2 or 3 component version tag, '
-                                     f'or one of {", ".join(v[-1] for v in COMPONENT_NAMES.values())}')
-    return value
+from versionpy import increment_version, click_validate_version
 
 
 @click.command()
-@click.argument('new_version', default='BUGFIX', callback=validate_version)
+@click.argument('new_version', default='BUGFIX', callback=click_validate_version)
 @click.option('-p', 'package_name')
 def main(new_version, package_name=None):
     """ Usage: bump [bugfix,minor,major,1.0.1] [-p package_name]
