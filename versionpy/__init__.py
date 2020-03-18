@@ -5,6 +5,7 @@ import shutil
 import sys
 from os.path import join, isfile, dirname, relpath, isdir
 from distutils.version import StrictVersion
+import click
 
 
 COMPONENT_NAMES = {
@@ -207,7 +208,16 @@ def critical(msg=''):
     sys.exit(1)
 
 
-
+def click_validate_version(ctx, param, value):
+    if '.' in value:
+        if len(value.split('.')) < 2 or len(value.split('.')) > 3:
+            raise click.BadParameter(f'Version must have 3 components. Got: {value}')
+    else:
+        if get_component_ind(value) is None:
+            raise click.BadParameter(
+                f'Parameter must be either a 2 or 3 component version tag, '
+                f'or one of {", ".join(v[-1] for v in COMPONENT_NAMES.values())}')
+    return value
 
 
 
