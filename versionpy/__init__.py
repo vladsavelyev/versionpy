@@ -4,7 +4,7 @@ import os
 import shutil
 import sys
 from os.path import join, isfile, dirname, relpath, isdir
-from distutils.version import StrictVersion
+from distutils.version import LooseVersion
 import click
 
 
@@ -53,7 +53,7 @@ def increment_version(arg='patch', pkg=None):
 
     if get_component_ind(arg) is not None:  # one of version component names
         if not versioned_pkg:
-            new_version = StrictVersion('0.0')
+            new_version = LooseVersion('0.0')
             log(f'Initialising with version {new_version}')
         else:
             cur_version = _get_cur_version(pkg)
@@ -71,7 +71,7 @@ def increment_version(arg='patch', pkg=None):
             new_version = cur_version
 
     else:
-        new_version = StrictVersion(arg)
+        new_version = LooseVersion(arg)
 
     git_rev = get_git_revision()
     with open(version_py, 'w') as f:
@@ -144,12 +144,12 @@ def _get_cur_version(pkg, silent=False):
                     ver_str = l.split(' = ')[1].strip().strip("'")
                     break
         assert ver_str, f'Cannot read verion from file {version_py}'
-        cur_version = StrictVersion(ver_str)
+        cur_version = LooseVersion(ver_str)
         log(f'Current version as read from {version_py}: {cur_version}', silent=silent)
     else:
         version_txt = 'VERSION.txt'
         if isfile(version_txt):
-            cur_version = StrictVersion(open(version_txt).read().strip())
+            cur_version = LooseVersion(open(version_txt).read().strip())
             log(f'Current version as read from {version_txt}: {cur_version}', silent=silent)
         else:
             cur_version = None
