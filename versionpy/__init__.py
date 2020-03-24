@@ -11,7 +11,8 @@ import click
 COMPONENT_NAMES = {
     0: ['major'],
     1: ['minor'],
-    2: ['patch', 'bugfix']
+    2: ['patch', 'bugfix'],
+    3: ['prerelease']
 }
 
 def get_component_ind(component_name):
@@ -53,7 +54,7 @@ def increment_version(arg='patch', pkg=None):
 
     if get_component_ind(arg) is not None:  # one of version component names
         if not versioned_pkg:
-            new_version = LooseVersion('0.0')
+            new_version = LooseVersion('0.0.0')
             log(f'Initialising with version {new_version}')
         else:
             cur_version = _get_cur_version(pkg)
@@ -210,17 +211,22 @@ def critical(msg=''):
 
 def click_validate_version(ctx, param, value):
     if '.' in value:
-        if len(value.split('.')) < 2 or len(value.split('.')) > 3:
-            raise click.BadParameter(f'Version must have 3 components. Got: {value}')
+        comps = value.split('.')
+        if len(comps) < 2 or len(comps) > 4:
+            raise click.BadParameter(f'Cannot parse version {value}: version must have 2 to 4 components. '
+                                     f'Got {len(comps)}')
+        for i in range(min(2, len(comps))):
+            try:
+                int(comps[i])
+            except ValueError:
+                raise click.BadParameter(f'Cannot parse version {value}: components 1 to 3 must be integer values. '
+                                         f'Component {i} is not: {comps[i]}')
     else:
         if get_component_ind(value) is None:
             raise click.BadParameter(
-                f'Parameter must be either a 2 or 3 component version tag, '
+                f'Parameter must be a 2 to 4 component version tag, '
                 f'or one of {", ".join(v[-1] for v in COMPONENT_NAMES.values())}')
     return value
-
-
-
 
 
 
