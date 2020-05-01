@@ -97,17 +97,11 @@ def clean_package(package_name, dirpath='.'):
 
 
 def get_reqs():
-    try:  # for pip >= 10
-        from pip._internal.req import parse_requirements
-    except ImportError:  # for pip <= 9.0.3
-        from pip.req import parse_requirements
-
-    try:
-        install_reqs = parse_requirements('requirements.txt', session=False)
-    except TypeError:
-        install_reqs = parse_requirements('requirements.txt')
-    reqs = [str(ir.req) for ir in install_reqs if ir.req]
-    return reqs
+    req_fpath = 'requirements.txt'
+    if os.path.isfile(req_fpath):
+        with open(req_fpath) as f:
+            return [l.strip() for l in f.readlines() if not l.startswith('#') and l.strip()]
+    return []
 
 
 def find_package_files(dirpath, package, skip_exts=None):
