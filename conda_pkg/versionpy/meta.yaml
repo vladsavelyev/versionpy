@@ -17,12 +17,12 @@ python:
 
 requirements:
   build:
-    - python >=3.6.1
+    - python
     {% for dep in data.install_requires -%}
     - {{ dep.lower() }}
     {% endfor %}
   run:
-    - python >=3.6.1
+    - python
     {% for dep in data.install_requires -%}
     - {{ dep.lower() }}
     {% endfor %}
