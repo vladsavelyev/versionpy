@@ -63,13 +63,12 @@ def increment_version(arg='patch', pkg=None):
             components = list(cur_version.version)
             component_ind = get_component_ind(arg)
             log(f'Incrementing {arg} component {components[component_ind]}->{components[component_ind] + 1}')
-            components[component_ind] = str(int(components[component_ind]) + 1)
+            components[component_ind] = int(components[component_ind]) + 1
+
             for lower_component_ind in range(component_ind + 1, len(components)):
                 components[lower_component_ind] = 0
 
-            cur_version.version = components
-            cur_version.prerelease = None
-            new_version = cur_version
+            new_version = LooseVersion('.'.join(map(str, components)))
 
     else:
         new_version = LooseVersion(arg)
