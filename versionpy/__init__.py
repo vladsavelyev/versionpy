@@ -183,7 +183,7 @@ def _find_folder_to_package():
 
     if not pkg:
         pkg = input(f'Could not find any packages to version. Please specify folder to initiate _version.py '
-                    f'(alternatively, you can rerun with `-p <package_name>`):')
+                    f'(alternatively, you can rerun with `-p <package_name>`): ')
         while not isdir(pkg):
             dirs = [d for d in os.listdir(os.getcwd()) if isdir(d)]
             pkg = input(f'Folder {pkg} does not exist. Available folders: {", ".join(dirs)}')
