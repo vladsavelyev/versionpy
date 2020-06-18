@@ -5,7 +5,6 @@ import shutil
 import sys
 from os.path import join, isfile, dirname, relpath, isdir
 from distutils.version import LooseVersion
-import click
 
 
 COMPONENT_NAMES = {
@@ -203,6 +202,7 @@ def critical(msg=''):
 
 
 def click_validate_version(ctx, param, value):
+    import click
     if '.' in value:
         comps = value.split('.')
         if len(comps) < 2 or len(comps) > 4:
