@@ -53,7 +53,7 @@ def increment_version(arg='patch', pkg=None):
 
     if get_component_ind(arg) is not None:  # one of version component names
         if not versioned_pkg:
-            new_version = LooseVersion('0.0.0')
+            new_version = LooseVersion('0.1.0')
             log(f'Initialising with version {new_version}')
         else:
             cur_version = _get_cur_version(pkg)
@@ -164,6 +164,8 @@ def _find_versioned_package(pkg=None, silent=False):
 
 
 def _find_folder_to_package():
+    # TODO: check setup.py for main as well package
+
     pkg = None
     try:
         import setuptools

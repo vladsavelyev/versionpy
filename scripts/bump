@@ -10,7 +10,7 @@ from versionpy import increment_version, click_validate_version
 def main(new_version, package_name=None):
     """ Usage: bump [bugfix,minor,major,1.0.1] [-p package_name]
     """
-    # push all existing un-pushed commits
+    # push any existing un-pushed commits
     run_cmdl(f'git push')
     # update the version file
     version_file, new_version = increment_version(new_version, package_name)
