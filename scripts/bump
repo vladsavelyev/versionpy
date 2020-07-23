@@ -10,13 +10,19 @@ from versionpy import increment_version, click_validate_version
 def main(new_version, package_name=None):
     """ Usage: bump [bugfix,minor,major,1.0.1] [-p package_name]
     """
+    # push all existing un-pushed commits
+    run_cmdl(f'git push')
+    # update the version file
     version_file, new_version = increment_version(new_version, package_name)
-    run_cmdl(f'git push')
     run_cmdl(f'git add {version_file}')
+    # new commit named "Bump version"
     run_cmdl(f'git commit -m "Bump {new_version}"')
-    run_cmdl(f'git tag {new_version}')
-    run_cmdl(f'git push origin {new_version}')
-    run_cmdl(f'git push')
+    # new (annotated) tag pointing to the commit "Bump version"
+    # Because only annotated tags can be pushed with a regular commit at the same time,
+    # see https://stackoverflow.com/questions/3745135/push-git-commits-tags-simultaneously
+    run_cmdl(f'git tag -a {new_version} -m "Release {new_version}"')
+    # push the commit and the tag together
+    run_cmdl(f'git push --follow-tags')
 
 
 def run_cmdl(_cmd):
