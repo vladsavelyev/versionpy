@@ -5,7 +5,7 @@ jobs:
   build-test-publish:
     # For tag pushes, we want to assure only the tag event triggers CI,
     # not the accompanying commit:
-    if: ${{ ! startsWith(toJSON(github.event.commits.*.msg), 'Bump ') }}
+    if: ${{ ! startsWith(toJSON(github.event.head_commit.message), 'Bump ') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -52,4 +52,4 @@ jobs:
         run: |
           pip install setuptools wheel twine
           python setup.py sdist bdist_wheel
-          twine upload --repository vladsaveliev dist/*
+          twine upload dist/*
