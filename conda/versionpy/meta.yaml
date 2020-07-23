@@ -1,23 +1,24 @@
-{% set data=load_setup_py_data() %}
+{% set data = load_setup_py_data() %}
 
 package:
   name: versionpy
-  version: {{ data.version }}
+  version: {{ data['version'] }}
 
 source:
   path: ../../
 
 build:
+  noarch: python
   number: 0
 
 requirements:
   build:
-    - python ==3.7.*
+    - python
     {% for dep in data.install_requires -%}
     - {{ dep.lower() }}
     {% endfor %}
   run:
-    - python ==3.7.*
+    - python
     {% for dep in data.install_requires -%}
     - {{ dep.lower() }}
     {% endfor %}
@@ -29,7 +30,6 @@ test:
     - bump --help
 
 about:
-  home: "{{ data.url }}"
-  license: "GNU General Public License v3 (GPLv3)"
-  license_family: GPL3
-  summary: "{{ data.description }}"
+  home: {{ data['url'] }}
+  license: {{ data['license'] }}
+  summary: {{ data['description'] }}
