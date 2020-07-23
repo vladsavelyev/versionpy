@@ -21,7 +21,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     setup_requires=[],
-    install_requires=versionpy.get_reqs(),
+    install_requires=['click'],
     python_requires='>=3.6',
     scripts=[
         join('scripts', 'bump'),
