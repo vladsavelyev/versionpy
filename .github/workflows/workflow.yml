@@ -37,7 +37,8 @@ jobs:
 
       - name: Upload to anaconda
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
-        run: anaconda -t ${{ secrets.ANACONDA_TOKEN }} \
+        run: |
+            anaconda -t ${{ secrets.ANACONDA_TOKEN }} \
             upload ${HOME}/miniconda3/conda-bld/**/*.tar.bz2
 
       - name: Publish to Pypi
