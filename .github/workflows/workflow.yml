@@ -2,20 +2,23 @@ name: Build/test/publish conda package
 on: [push, pull_request]
 
 jobs:
-  build-test-publish:
+  checkout-code:
+    name: Checkout codebase
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
 
-      - name: Add miniconda to PATH
-        run: echo "::add-path::${HOME}/miniconda3/bin"
-
+  setup-conda:
+    name: Install/setup conda
+    needs: checkout-code
+    runs-on: ubuntu-latest
+    steps:
       - name: Setup conda
         run: |
           wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
             --no-verbose -O miniconda.sh
           bash miniconda.sh -b
-          echo $PATH
+          export PATH=${HOME}/miniconda3/bin:${PATH}
           conda config --set always_yes yes --set changeps1 no
           conda install -c conda-forge mamba
           mamba update conda
@@ -23,21 +26,70 @@ jobs:
             --add channels bioconda --add channels conda-forge
           mamba install pip versionpy conda-build conda-verify anaconda-client
 
+  build-conda-package:
+    name: Build conda package
+    needs: setup-conda
+    runs-on: ubuntu-latest
+    steps:
       - name: Build package
         run: |
+          export PATH=${HOME}/miniconda3/bin:${PATH}
           mamba build conda/$(basename $GITHUB_REPOSITORY)
 
-      - name: Install
-        run: |
-          mamba install --use-local $(basename $GITHUB_REPOSITORY)
+  test:
+    name: Run tests
+    needs: build-conda-package
+    if: !startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add miniconda to PATH
+        run: echo "::add-path::${HOME}/miniconda3/bin"
+
+      - name: Install local conda package
+        run: mamba install --use-local $(basename $GITHUB_REPOSITORY)
 
       - name: Test
+        if: !startsWith(github.ref, 'refs/tags/')
         run: |
           python -c "from versionpy import get_version, increment_version"
           bump --help
 
+  publish-conda:
+    name: Publish conda package
+    needs: build-conda-package
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
       - name: Upload to anaconda
-        if: startsWith(github.ref, 'refs/tags/')
         run: |
           anaconda -t ${{ secrets.ANACONDA_TOKEN }} \
             upload ${HOME}/miniconda3/conda-bld/**/*.tar.bz2
+
+  build-publish-pip:
+    name: Publish to Pypi
+    needs: checkout-code
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Setup build tools
+        run: pip install -u setuptools wheel twine
+
+      - name: Build package
+        run: python setup.py sdist bdist_wheel
+
+      - name: Upload to Pypi
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: twine upload --repository vladsaveliev dist/*
+
+
+
+
+
+
+
+
+
+
+

@@ -10,7 +10,7 @@ setup(
     name=pkg,
     script_name=pkg,
     version=version,
-    author='Vlad Saveliev',
+    author='Vlad Savelyev',
     author_email='vladislav.sav@gmail.com',
     description='Small utility to track and bump the version of your python tool',
     long_description=open('README.md').read(),
@@ -22,6 +22,7 @@ setup(
     zip_safe=False,
     setup_requires=[],
     install_requires=versionpy.get_reqs(),
+    python_requires='>=3.6',
     scripts=[
         join('scripts', 'bump'),
         join('scripts', 'version'),
