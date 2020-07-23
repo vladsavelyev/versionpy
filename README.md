@@ -1,5 +1,7 @@
 # Versionpy
 
+![CI](https://github.com/vladsaveliev/versionpy/workflows/CI/badge.svg) [![Anaconda-Server Badge](https://anaconda.org/vladsaveliev/versionpy/badges/installer/conda.svg)](https://conda.anaconda.org/vladsaveliev/versionpy) [![PyPI version](https://badge.fury.io/py/versionpy.svg)](https://badge.fury.io/py/versionpy)
+
 A small utility to version and release your python tools. Doesn't need any configuration files.
 
 ## Install
