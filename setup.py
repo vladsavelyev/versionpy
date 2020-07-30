@@ -3,7 +3,7 @@ from os.path import join
 from setuptools import setup
 
 import versionpy
-pkg = versionpy.__name__
+pkg = 'versionpy'
 version = versionpy.get_version(pkg)
 
 setup(
